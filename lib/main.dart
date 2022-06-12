@@ -14,14 +14,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => BookListViewModel(),
-      child: MaterialApp(
-        theme: ThemeData.dark().copyWith(primaryColor: Colors.pinkAccent),
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/",
-        routes: {
-          '/': (context) => const SplashView(),
-        },
-      ),
+      builder: (context,child){
+        final vm = Provider.of<BookListViewModel>(context);
+        return MaterialApp(
+          theme: vm.isDark
+              ? ThemeData.dark().copyWith(primaryColor: Colors.pinkAccent)
+              : ThemeData.light().copyWith(primaryColor: Colors.pinkAccent),
+          debugShowCheckedModeBanner: false,
+          initialRoute: "/",
+          routes: {
+            '/': (context) => const SplashView(),
+          },
+        );
+      },
     );
   }
 }

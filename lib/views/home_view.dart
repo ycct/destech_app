@@ -1,7 +1,9 @@
 import 'package:destech_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../utils/constants.dart';
 import '../utils/methods.dart';
+import '../viewmodel/book_list_view_model.dart';
 import '../widgets/all_listview.dart';
 import '../widgets/favourites_listview.dart';
 import 'favourites_view.dart';
@@ -61,6 +63,11 @@ class _HomeViewState extends State<HomeView> {
 
 AppBar buildAppBar(BuildContext context, String title) {
   return AppBar(
+    actions: [
+        IconButton(onPressed: (){
+          Provider.of<BookListViewModel>(context,listen: false).changeTheme();
+        }, icon: const Icon(Icons.sunny_snowing))
+    ],
     backgroundColor: context.primaryColor,
     iconTheme: IconThemeData(
       color: context.scaffoldBackgroundColor,

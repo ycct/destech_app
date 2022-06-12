@@ -8,6 +8,8 @@ enum Status { initial, loading, notFound, success }
 class BookListViewModel extends ChangeNotifier {
   List<BookModel>? books = [];
 
+  bool isDark = true;
+
   BookViewModel favouriteBooks = BookViewModel(bookModel: []);
   BookViewModel bookViewModel = BookViewModel(bookModel: []);
 
@@ -15,7 +17,7 @@ class BookListViewModel extends ChangeNotifier {
 
   Future<void> getData() async {
     status = Status.loading;
-    books = await WebService().fetchData(15);
+    books = await WebService().fetchData(5);
     bookViewModel = BookViewModel(bookModel: books);
     status = books!.isEmpty ? Status.success : Status.notFound;
     notifyListeners();
@@ -46,4 +48,10 @@ class BookListViewModel extends ChangeNotifier {
     items.insert(newIndex, item);
     notifyListeners();
   }
+  void changeTheme(){
+    isDark =! isDark;
+    notifyListeners();
+  }
+
+
 }
