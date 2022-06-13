@@ -1,4 +1,6 @@
 import 'package:destech_app/utils/extensions.dart';
+import 'package:destech_app/views/components/components.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../model/book_model.dart';
 import '../utils/constants.dart';
@@ -15,6 +17,7 @@ class DetailedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: kIsWeb ? buildAppBar(context, "Details") : null,
       body: SingleChildScrollView(
         child: Column(
           children: [
