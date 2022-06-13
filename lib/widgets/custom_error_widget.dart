@@ -1,6 +1,8 @@
 import 'package:destech_app/utils/extensions.dart';
 import 'package:destech_app/views/components/components.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../viewmodel/book_list_view_model.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   final String title;
@@ -14,10 +16,21 @@ class CustomErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, title),
-      body: Center(
-        child: Text(
-          title,
-          style: context.headline6,
+      body: RefreshIndicator(
+        color: context.primaryColor,
+        onRefresh: () async {
+          await Provider.of<BookListViewModel>(context, listen: false)
+              .getData(context);
+        },
+        child: ListView(
+          children: [
+            context.sizedBoxHeightDefault,
+            Center(
+              child: Text(
+                title,style: context.headline4,
+              ),
+            ),
+          ],
         ),
       ),
     );

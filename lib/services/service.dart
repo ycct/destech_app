@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:destech_app/widgets/custom_snackbar.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../model/book_model.dart';
 import '../model/main_data_model.dart';
@@ -7,7 +9,7 @@ import '../utils/constants.dart';
 class WebService {
   MainDataModel? mainDataModel;
 
-  Future<List<BookModel>> fetchData(int quantity) async {
+  Future<List<BookModel>> fetchData(int quantity, BuildContext context) async {
     List<BookModel> list = [];
     try {
       Uri serviceUri = Uri.parse(AppConstants.baseUrl +
@@ -21,6 +23,8 @@ class WebService {
         list.addAll(mainDataModel!.book!);
       }
     } catch (e) {
+      CustomSnackBar.showErrorMessage(context);
+      debugPrint(e.toString());
       return [];
     }
     return list;

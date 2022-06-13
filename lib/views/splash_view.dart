@@ -18,7 +18,7 @@ class _SplashViewState extends State<SplashView> {
     WidgetsBinding.instance.addPostFrameCallback(
           (timeStamp) {
         Provider.of<BookListViewModel>(context, listen: false)
-            .getData()
+            .getData(context)
             .then(
               (value) => Navigator.pushReplacement(
             context,
