@@ -1,7 +1,7 @@
 import 'package:destech_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import '../widgets/all_listview.dart';
-import 'home_view.dart';
+import 'components/components.dart';
 
 class FavouritesView extends StatelessWidget {
   const FavouritesView({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class FavouritesView extends StatelessWidget {
             context.sizedBoxHeightExtraSmall,
             Expanded(
               flex: 15,
-              child: BookLGridView(
+              child: BookListView(
                 bookViewModel:  context.viewModel.favouriteBooks,
               ),
             ),

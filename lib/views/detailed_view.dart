@@ -19,36 +19,15 @@ class DetailedView extends StatelessWidget {
         child: Column(
           children: [
             buildImageIconContainerStack(context, context.viewModel),
-            Text(
-              bookModel.title!.toUpperCase(),
-              style: context.headline5,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.paddingExtraLargeWidth,
-                vertical: context.paddingUltraSmallHeight,
-              ),
-              child: const Divider(
-                thickness: 2,
-              ),
-            ),
+            buildTitles(
+                context, bookModel.title!.toUpperCase(), context.headline5!),
+            buildDivider(context),
             buildTitles(context, bookModel.published!, context.headline5!),
-            context.sizedBoxHeightExtraSmall,
             buildTitles(context, bookModel.publisher!, context.headline6!),
             buildTitles(context, bookModel.genre!, context.subtitle1!),
-            context.sizedBoxHeightUltraSmall,
             buildTitles(context, bookModel.author!, context.headline6!),
             buildTitles(context, bookModel.isbn!, context.bodyText1!),
-            context.sizedBoxHeightExtraSmall,
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.paddingExtraLargeWidth,
-              ),
-              child: Text(
-                bookModel.description! * 5,
-                textAlign: TextAlign.center,
-              ),
-            ),
+            buildTitles(context, bookModel.description! * 5),
             context.sizedBoxHeightDefault,
           ],
         ),
@@ -56,12 +35,16 @@ class DetailedView extends StatelessWidget {
     );
   }
 
-  Widget buildTitles(BuildContext context, String title, TextStyle style) =>
+  Widget buildTitles(BuildContext context, String title, [TextStyle? style]) =>
       Padding(
         padding: EdgeInsets.symmetric(
-          vertical: context.paddingUltraSmallHeight,
+            vertical: context.paddingExtraSmallHeight,
+            horizontal: context.paddingDefaultWidth),
+        child: Text(
+          title,
+          style: style,
+          textAlign: TextAlign.center,
         ),
-        child: Text(title, style: style),
       );
 
   Stack buildImageIconContainerStack(
@@ -143,6 +126,15 @@ class DetailedView extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Padding buildDivider(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.paddingLargeWidth),
+      child: const Divider(
+        thickness: 2,
       ),
     );
   }

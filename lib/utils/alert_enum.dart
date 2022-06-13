@@ -21,13 +21,13 @@ extension AlertEnumExtension on AlertEnum {
   Color get textColor {
     switch (this) {
       case AlertEnum.success:
-        return const Color(0xFF155724);
+        return Colors.green;
       case AlertEnum.danger:
-        return const Color(0xFF721c24);
+        return Colors.red;
       case AlertEnum.warning:
-        return const Color(0xFF856404);
+        return Colors.yellow;
       case AlertEnum.info:
-        return const Color(0xFF0c5460);
+        return Colors.blue;
       default:
         throw Exception("AlertEnumExtension value exception");
     }
@@ -40,7 +40,7 @@ extension AlertEnumExtension on AlertEnum {
       case AlertEnum.danger:
         return "Error";
       case AlertEnum.warning:
-        return "Warning";
+        return "Unexpected Error";
       case AlertEnum.info:
         return "Info";
       default:

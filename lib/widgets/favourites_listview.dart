@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import 'custom_card.dart';
 
-class CategoryListView extends StatelessWidget {
+class FavouritesListView extends StatelessWidget {
   final double width;
   final String image;
   final double height;
   final String title;
   final VoidCallback onTap;
 
-  const CategoryListView({
+  const FavouritesListView({
     Key? key,
     required this.width,
     required this.height,

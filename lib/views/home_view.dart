@@ -1,11 +1,13 @@
+import 'package:destech_app/utils/alert_enum.dart';
 import 'package:destech_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../utils/constants.dart';
 import '../utils/methods.dart';
 import '../viewmodel/book_list_view_model.dart';
 import '../widgets/all_listview.dart';
+import '../widgets/custom_error_widget.dart';
 import '../widgets/favourites_listview.dart';
+import 'components/components.dart';
 import 'favourites_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,9 +20,15 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context, "Home"),
-      body: Scaffold(
+    if (context.viewModel.status == Status.notFound) {
+      return CustomErrorWidget(
+        title: AlertEnum.danger.titleText,
+      );
+    } else if (context.viewModel.status == Status.loading) {
+      return const CircularProgressIndicator();
+    } else if (context.viewModel.status == Status.success) {
+      return Scaffold(
+        appBar: buildAppBar(context, "Home"),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: context.paddingSmallWidth),
           child: Column(
@@ -29,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
               context.sizedBoxHeightExtraSmall,
               Expanded(
                 flex: 4,
-                child: CategoryListView(
+                child: FavouritesListView(
                   onTap: () {
                     navigateToWidget(
                       context,
@@ -49,35 +57,17 @@ class _HomeViewState extends State<HomeView> {
               ),
               Expanded(
                 flex: 15,
-                child: BookLGridView(
-                    bookViewModel:
-                    context.viewModel.bookViewModel),
+                child: BookListView(
+                    bookViewModel: context.viewModel.bookViewModel),
               ),
             ],
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return CustomErrorWidget(
+        title: AlertEnum.warning.titleText,
+      );
+    }
   }
-}
-
-AppBar buildAppBar(BuildContext context, String title) {
-  return AppBar(
-    actions: [
-        IconButton(onPressed: (){
-          Provider.of<BookListViewModel>(context,listen: false).changeTheme();
-        }, icon: const Icon(Icons.sunny_snowing))
-    ],
-    backgroundColor: context.primaryColor,
-    iconTheme: IconThemeData(
-      color: context.scaffoldBackgroundColor,
-    ),
-    centerTitle: true,
-    title: Text(
-      title,
-      style: context.headline6!.copyWith(
-        color: context.scaffoldBackgroundColor,
-      ),
-    ),
-  );
 }

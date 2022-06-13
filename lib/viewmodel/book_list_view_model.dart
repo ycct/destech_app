@@ -19,7 +19,8 @@ class BookListViewModel extends ChangeNotifier {
     status = Status.loading;
     books = await WebService().fetchData(5);
     bookViewModel = BookViewModel(bookModel: books);
-    status = books!.isEmpty ? Status.success : Status.notFound;
+    status = books!.isEmpty ? Status.notFound : Status.success;
+    print(status);
     notifyListeners();
   }
 
@@ -48,10 +49,9 @@ class BookListViewModel extends ChangeNotifier {
     items.insert(newIndex, item);
     notifyListeners();
   }
-  void changeTheme(){
-    isDark =! isDark;
+
+  void changeTheme() {
+    isDark = !isDark;
     notifyListeners();
   }
-
-
 }

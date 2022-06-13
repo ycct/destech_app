@@ -9,19 +9,19 @@ import '../viewmodel/book_view_model.dart';
 import '../views/detailed_view.dart';
 import 'custom_card.dart';
 
-class BookLGridView extends StatefulWidget {
+class BookListView extends StatefulWidget {
   final BookViewModel bookViewModel;
 
-  const BookLGridView({
+  const BookListView({
     Key? key,
     required this.bookViewModel,
   }) : super(key: key);
 
   @override
-  State<BookLGridView> createState() => _BookLGridViewState();
+  State<BookListView> createState() => _BookListViewState();
 }
 
-class _BookLGridViewState extends State<BookLGridView> {
+class _BookListViewState extends State<BookListView> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<BookListViewModel>(context);
@@ -30,14 +30,6 @@ class _BookLGridViewState extends State<BookLGridView> {
       itemBuilder: (context, index) {
         return InkWell(
           key: ValueKey(widget.bookViewModel.bookModel![index].id),
-          onTap: () {
-            navigateToWidget(
-              context,
-              DetailedView(
-                bookModel: widget.bookViewModel.bookModel![index],
-              ),
-            );
-          },
           child: CustomCard(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -62,18 +54,25 @@ class _BookLGridViewState extends State<BookLGridView> {
                   context.sizedBoxWidthSmall,
                   Expanded(
                     flex: 2,
-                    child: buildTextColumns(context,
-                        widget.bookViewModel.bookModel![index]),
+                    child: buildTextColumns(
+                        context, widget.bookViewModel.bookModel![index]),
                   ),
                 ],
               ),
             ),
           ),
+          onTap: () {
+            navigateToWidget(
+              context,
+              DetailedView(
+                bookModel: widget.bookViewModel.bookModel![index],
+              ),
+            );
+          },
         );
       },
       onReorder: (int oldIndex, int newIndex) {
-        vm.updateItems(
-            oldIndex, newIndex, widget.bookViewModel.bookModel!);
+        vm.updateItems(oldIndex, newIndex, widget.bookViewModel.bookModel!);
       },
     );
   }
