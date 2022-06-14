@@ -9,20 +9,25 @@ class FavouritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, "Favourites"),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.paddingSmallWidth),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            context.sizedBoxHeightExtraSmall,
-            Expanded(
-              flex: 15,
-              child: BookListView(
-                bookViewModel:  context.viewModel.favouriteBooks,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
+            [
+          buildSliverAppBar(context, "Favourites"),
+        ],
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.paddingSmallWidth),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              context.sizedBoxHeightExtraSmall,
+              Expanded(
+                flex: 15,
+                child: BookListView(
+                  bookViewModel: context.viewModel.favouriteBooks,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

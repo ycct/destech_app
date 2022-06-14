@@ -9,7 +9,7 @@ import '../utils/constants.dart';
 class WebService {
   MainDataModel? mainDataModel;
 
-  Future<List<BookModel>> fetchData(int quantity, BuildContext context) async {
+  Future<List<BookModel>> fetchData(int quantity) async {
     List<BookModel> list = [];
     try {
       Uri serviceUri = Uri.parse(AppConstants.baseUrl +
@@ -23,7 +23,7 @@ class WebService {
         list.addAll(mainDataModel!.book!);
       }
     } catch (e) {
-      CustomSnackBar.showErrorMessage(context);
+      CustomSnackBar.showErrorMessage(e);
       debugPrint(e.toString());
       return [];
     }

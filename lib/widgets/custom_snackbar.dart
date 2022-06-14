@@ -12,19 +12,6 @@ class CustomSnackBar {
   static const Duration _snackBarDuration = Duration(seconds: 3);
   static const double _width = double.infinity;
 
-  CustomSnackBar.showMessage(AlertEnum alertEnum, String message) {
-    Get.snackbar(
-      alertEnum.titleText,
-      message,
-      margin: _margin,
-      snackPosition: _snackPosition,
-      backgroundColor: alertEnum.backgroundColor,
-      colorText: alertEnum.textColor,
-      duration: _snackBarDuration,
-      maxWidth: _width,
-    );
-  }
-
   CustomSnackBar.showSuccessMessage(String message) {
     const AlertEnum alertEnum = AlertEnum.success;
     Get.snackbar(

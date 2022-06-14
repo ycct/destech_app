@@ -20,9 +20,22 @@ AppBar buildAppBar(BuildContext context, String title) {
     centerTitle: true,
     title: Text(
       title,
-      style: context.headline6!.copyWith(
-        color: context.scaffoldBackgroundColor,
-      ),
+      style: context.headline6!
     ),
+  );
+}
+SliverAppBar buildSliverAppBar(BuildContext context,String title) {
+  return SliverAppBar(
+    title:  Text(title),
+    centerTitle: true,
+    backgroundColor: context.primaryColor,
+    actions: [
+      IconButton(
+        onPressed: () {
+          Provider.of<BookListViewModel>(context, listen: false).changeTheme();
+        },
+        icon: const Icon(Icons.sunny_snowing),
+      ),
+    ],
   );
 }

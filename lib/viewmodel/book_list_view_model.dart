@@ -1,3 +1,5 @@
+import 'package:destech_app/utils/alert_enum.dart';
+import 'package:destech_app/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import '../model/book_model.dart';
 import '../services/service.dart';
@@ -17,9 +19,12 @@ class BookListViewModel extends ChangeNotifier {
 
   Future<void> getData(BuildContext context) async {
     status = Status.loading;
-    books = await WebService().fetchData(25,context);
+    books = await WebService().fetchData(25);
     bookViewModel = BookViewModel(bookModel: books);
     status = books!.isEmpty ? Status.notFound : Status.success;
+    status == Status.success
+        ? CustomSnackBar.showSuccessMessage(AlertEnum.success.titleText)
+        : null;
     notifyListeners();
   }
 

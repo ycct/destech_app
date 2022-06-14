@@ -1,15 +1,14 @@
 import 'package:destech_app/utils/extensions.dart';
 import 'package:destech_app/views/components/components.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../viewmodel/book_list_view_model.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   final String title;
+  final Future<void> Function()  onRefresh;
 
   const CustomErrorWidget({
     Key? key,
-    required this.title,
+    required this.title, required this.onRefresh,
   }) : super(key: key);
 
   @override
@@ -18,10 +17,7 @@ class CustomErrorWidget extends StatelessWidget {
       appBar: buildAppBar(context, title),
       body: RefreshIndicator(
         color: context.primaryColor,
-        onRefresh: () async {
-          await Provider.of<BookListViewModel>(context, listen: false)
-              .getData(context);
-        },
+        onRefresh: onRefresh,
         child: ListView(
           children: [
             context.sizedBoxHeightDefault,

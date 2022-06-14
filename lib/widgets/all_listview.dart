@@ -25,54 +25,60 @@ class _BookListViewState extends State<BookListView> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<BookListViewModel>(context);
-    return ReorderableListView.builder(
-      itemCount: widget.bookViewModel.bookModel!.length,
-      itemBuilder: (context, index) {
-        return InkWell(
-          key: ValueKey(widget.bookViewModel.bookModel![index].id),
-          child: CustomCard(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: context.paddingUltraSmallHeight),
-              child: Row(
-                children: [
-                  context.sizedBoxWidthSmall,
-                  Expanded(
-                    child: Container(
-                      clipBehavior: Clip.antiAlias,
-                      height: context.dynamicHeight(0.1),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                            AppConstants.extraSmallRadius),
-                      ),
-                      child: Image.network(
-                        widget.bookViewModel.bookModel![index].image!,
-                        fit: BoxFit.cover,
+    return RefreshIndicator(color: context.primaryColor,
+      onRefresh: () async {
+        await Provider.of<BookListViewModel>(context, listen: false)
+            .getData(context);
+      },
+      child: ReorderableListView.builder(
+        itemCount: widget.bookViewModel.bookModel!.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            key: ValueKey(widget.bookViewModel.bookModel![index].id),
+            child: CustomCard(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: context.paddingUltraSmallHeight),
+                child: Row(
+                  children: [
+                    context.sizedBoxWidthSmall,
+                    Expanded(
+                      child: Container(
+                        clipBehavior: Clip.antiAlias,
+                        height: context.dynamicHeight(0.1),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                              AppConstants.extraSmallRadius),
+                        ),
+                        child: Image.network(
+                          widget.bookViewModel.bookModel![index].image!,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  context.sizedBoxWidthSmall,
-                  Expanded(
-                    flex: 2,
-                    child: buildTextColumns(
-                        context, widget.bookViewModel.bookModel![index]),
-                  ),
-                ],
+                    context.sizedBoxWidthSmall,
+                    Expanded(
+                      flex: 2,
+                      child: buildTextColumns(
+                          context, widget.bookViewModel.bookModel![index]),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          onTap: () {
-            Get.to(
-              DetailedView(
-                bookModel: widget.bookViewModel.bookModel![index],
-              ),
-            );
-          },
-        );
-      },
-      onReorder: (int oldIndex, int newIndex) {
-        vm.updateItems(oldIndex, newIndex, widget.bookViewModel.bookModel!);
-      },
+            onTap: () {
+              Get.to(
+                DetailedView(
+                  bookModel: widget.bookViewModel.bookModel![index],
+                ),
+              );
+            },
+          );
+        },
+        onReorder: (int oldIndex, int newIndex) {
+          vm.updateItems(oldIndex, newIndex, widget.bookViewModel.bookModel!);
+        },
+      ),
     );
   }
 
