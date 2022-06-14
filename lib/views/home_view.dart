@@ -1,14 +1,14 @@
 import 'package:destech_app/utils/alert_enum.dart';
 import 'package:destech_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../utils/constants.dart';
-import '../utils/methods.dart';
 import '../viewmodel/book_list_view_model.dart';
 import '../widgets/all_listview.dart';
 import '../widgets/custom_error_widget.dart';
 import '../widgets/favourites_listview.dart';
 import 'components/components.dart';
-import 'favourites_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -39,9 +39,7 @@ class _HomeViewState extends State<HomeView> {
                 flex: 4,
                 child: FavouritesListView(
                   onTap: () {
-                    navigateToWidget(
-                      context,
-                      const FavouritesView(),
+                    Get.toNamed("/favourites",
                     );
                   },
                   height: context.dynamicHeight(0.14),

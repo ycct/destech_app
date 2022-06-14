@@ -1,34 +1,75 @@
-import 'package:destech_app/utils/extensions.dart';
-import 'package:flutter/material.dart';
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import '../utils/alert_enum.dart';
 
 class CustomSnackBar {
-  CustomSnackBar.showSuccessMessage(BuildContext context) {
-    const AlertEnum alertEnum = AlertEnum.success;
-    context.scaffold.showSnackBar(customSnackBar(alertEnum));
-  }
+  static const SnackPosition _snackPosition = SnackPosition.TOP;
+  static const EdgeInsets _margin = EdgeInsets.symmetric(
+    vertical: 20,
+    horizontal: 10,
+  );
+  static const Duration _snackBarDuration = Duration(seconds: 3);
+  static const double _width = double.infinity;
 
-  CustomSnackBar.showErrorMessage(BuildContext context) {
-    const AlertEnum alertEnum = AlertEnum.danger;
-    context.scaffold.showSnackBar(customSnackBar(alertEnum));
-  }
-
-  CustomSnackBar.showWarningMessage(BuildContext context) {
-    const AlertEnum alertEnum = AlertEnum.warning;
-    context.scaffold.showSnackBar(
-      customSnackBar(alertEnum),
-    );
-  }
-
-  SnackBar customSnackBar(AlertEnum alertEnum) {
-    SnackBar snackBar = SnackBar(
-      content: Text(
-        alertEnum.titleText,
-        style: TextStyle(color: alertEnum.textColor),
-      ),
+  CustomSnackBar.showMessage(AlertEnum alertEnum, String message) {
+    Get.snackbar(
+      alertEnum.titleText,
+      message,
+      margin: _margin,
+      snackPosition: _snackPosition,
       backgroundColor: alertEnum.backgroundColor,
+      colorText: alertEnum.textColor,
+      duration: _snackBarDuration,
+      maxWidth: _width,
     );
-    return snackBar;
+  }
+
+  CustomSnackBar.showSuccessMessage(String message) {
+    const AlertEnum alertEnum = AlertEnum.success;
+    Get.snackbar(
+      alertEnum.titleText,
+      message,
+      margin: _margin,
+      snackPosition: _snackPosition,
+      backgroundColor: alertEnum.backgroundColor,
+      colorText: alertEnum.textColor,
+      duration: _snackBarDuration,
+      maxWidth: _width,
+    );
+  }
+
+  CustomSnackBar.showWarningMessage(String message) {
+    const AlertEnum alertEnum = AlertEnum.warning;
+    Get.snackbar(
+      alertEnum.titleText,
+      message,
+      margin: _margin,
+      snackPosition: _snackPosition,
+      backgroundColor: alertEnum.backgroundColor,
+      colorText: alertEnum.textColor,
+      duration: _snackBarDuration,
+      maxWidth: _width,
+    );
+  }
+
+  CustomSnackBar.showErrorMessage(var e) {
+    const AlertEnum alertEnum = AlertEnum.danger;
+    String message = "Error";
+
+    if (kDebugMode) {
+      message = e.toString();
+    }
+
+    Get.snackbar(
+      alertEnum.titleText,
+      message,
+      margin: _margin,
+      snackPosition: _snackPosition,
+      backgroundColor: alertEnum.backgroundColor,
+      colorText: alertEnum.textColor,
+      duration: _snackBarDuration,
+      maxWidth: _width,
+    );
   }
 }

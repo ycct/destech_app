@@ -1,8 +1,8 @@
 import 'package:destech_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/book_list_view_model.dart';
-import 'home_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -24,19 +24,14 @@ class _SplashViewState extends State<SplashView> {
         animateProgressIndicator();
         Provider.of<BookListViewModel>(context, listen: false)
             .getData(context)
-            .then(
-              (value) => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeView(),
-                ),
-              ),
+            .whenComplete(
+              () => Get.offNamed("/home"),
             );
       },
     );
   }
 
-  animateProgressIndicator() {
+  void animateProgressIndicator() {
     setState(() {
       count += 1;
     });
@@ -46,7 +41,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TweenAnimationBuilder(
-        duration: const Duration(milliseconds: 1500),
+        duration: const Duration(milliseconds: 2000),
         tween: Tween(begin: 0.0, end: 1.0),
         builder: (_, double value, __) {
           return Center(
@@ -63,13 +58,11 @@ class _SplashViewState extends State<SplashView> {
                 ),
                 context.sizedBoxHeightExtraSmall,
                 Positioned(
-
                   child: Text(
                     "${(value * 100).round()}%",
                     style: context.headline4,
                   ),
                 )
-
               ],
             ),
           );

@@ -7,7 +7,7 @@ import '../utils/constants.dart';
 import '../viewmodel/book_list_view_model.dart';
 
 class DetailedView extends StatelessWidget {
-  final BookModel bookModel;
+  final BookModel? bookModel;
 
   const DetailedView({
     Key? key,
@@ -23,14 +23,14 @@ class DetailedView extends StatelessWidget {
           children: [
             buildImageIconContainerStack(context, context.viewModel),
             buildTitles(
-                context, bookModel.title!.toUpperCase(), context.headline5!),
+                context, bookModel!.title!.toUpperCase(), context.headline5!),
             buildDivider(context),
-            buildTitles(context, bookModel.published!, context.headline5!),
-            buildTitles(context, bookModel.publisher!, context.headline6!),
-            buildTitles(context, bookModel.genre!, context.subtitle1!),
-            buildTitles(context, bookModel.author!, context.headline6!),
-            buildTitles(context, bookModel.isbn!, context.bodyText1!),
-            buildTitles(context, bookModel.description! * 5),
+            buildTitles(context, bookModel!.published!, context.headline5!),
+            buildTitles(context, bookModel!.publisher!, context.headline6!),
+            buildTitles(context, bookModel!.genre!, context.subtitle1!),
+            buildTitles(context, bookModel!.author!, context.headline6!),
+            buildTitles(context, bookModel!.isbn!, context.bodyText1!),
+            buildTitles(context, bookModel!.description! * 5),
             context.sizedBoxHeightDefault,
           ],
         ),
@@ -68,7 +68,7 @@ class DetailedView extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            bookModel.image!,
+            bookModel!.image!,
           ),
           fit: BoxFit.cover,
         ),
@@ -83,13 +83,13 @@ class DetailedView extends StatelessWidget {
       right: context.paddingSmallWidth,
       child: IconButton(
         onPressed: () {
-          viewModel.addBookToFavouriteList(bookModel);
-          viewModel.isFavourite(bookModel);
+          viewModel.addBookToFavouriteList(bookModel!);
+          viewModel.isFavourite(bookModel!);
         },
         icon: Icon(
           Icons.favorite,
           size: 45,
-          color: viewModel.isFavourite(bookModel)
+          color: viewModel.isFavourite(bookModel!)
               ? context.primaryColor
               : context.disabledColor,
         ),
@@ -119,7 +119,7 @@ class DetailedView extends StatelessWidget {
               width: context.dynamicWidth(0.35),
               height: 6,
               decoration: BoxDecoration(
-                color: viewModel.isFavourite(bookModel)
+                color: viewModel.isFavourite(bookModel!)
                     ? context.primaryColor
                     : context.disabledColor,
                 borderRadius: BorderRadius.circular(

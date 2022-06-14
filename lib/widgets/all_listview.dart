@@ -1,9 +1,9 @@
 import 'package:destech_app/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../model/book_model.dart';
 import '../utils/constants.dart';
-import '../utils/methods.dart';
 import '../viewmodel/book_list_view_model.dart';
 import '../viewmodel/book_view_model.dart';
 import '../views/detailed_view.dart';
@@ -62,8 +62,7 @@ class _BookListViewState extends State<BookListView> {
             ),
           ),
           onTap: () {
-            navigateToWidget(
-              context,
+            Get.to(
               DetailedView(
                 bookModel: widget.bookViewModel.bookModel![index],
               ),
