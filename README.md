@@ -1,16 +1,8 @@
-# destech_app
 
-A new Flutter project.
 
-## Getting Started
+https://user-images.githubusercontent.com/35145117/173692413-cad7911c-0430-4cd0-bdb1-e17303f351cf.mp4
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://user-images.githubusercontent.com/35145117/173692462-da131f74-483e-4746-90a8-c1ce44e4b983.mp4
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
